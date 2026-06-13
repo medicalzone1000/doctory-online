@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article — MediCore</title>
+
+  <link rel="stylesheet" href="../../styles/base/variables.css">
+  <link rel="stylesheet" href="../../styles/base/reset.css">
+  <link rel="stylesheet" href="../../styles/base/typography.css">
+  <link rel="stylesheet" href="../../styles/layout/container.css">
+  <link rel="stylesheet" href="../../styles/components/button.css">
+  <link rel="stylesheet" href="../../styles/components/card.css">
+  <link rel="stylesheet" href="../../styles/components/navbar.css">
+  <link rel="stylesheet" href="../../styles/components/toast.css">
+  <link rel="stylesheet" href="../../styles/components/spinner.css">
+  <link rel="stylesheet" href="../../styles/pages/articles.css">
+</head>
+<body>
+
+<header id="navbar" class="navbar"></header>
+
+<main class="section">
+  <div class="container">
+    <div id="article-content">
+      <!-- JS renders here -->
+      <div style="display:flex;justify-content:center;padding:var(--space-16)">
+        <div class="spinner spinner--lg"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="../../src/pages/ArticleDetail.js"></script>
+</body>
+</html>

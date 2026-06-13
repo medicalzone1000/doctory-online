@@ -1,0 +1,73 @@
+// ─────────────────────────────────────────
+//  APP CONFIGURATION & CONSTANTS
+// ─────────────────────────────────────────
+
+export const APP_NAME = 'MediCore';
+export const APP_VERSION = '1.0.0';
+
+// ─── SUPABASE ───
+export const SUPABASE_URL = 'https://egcfnjfrrajxwfhucltk.supabase.co';
+// انسخ هذا المفتاح من: Supabase Dashboard → Settings → API → anon/public key
+export const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+
+// ─── API (kept for reference, now replaced by Supabase client) ───
+export const API_BASE_URL    = SUPABASE_URL;
+export const API_TIMEOUT     = 10000;
+
+// ─── Auth (Supabase manages tokens — these keys store user profile only) ───
+export const USER_KEY         = 'medicore_user';
+export const TOKEN_KEY        = 'medicore_token';
+export const REFRESH_TOKEN_KEY = 'medicore_refresh';
+
+// ─── Roles ───
+export const ROLES = {
+  ADMIN:  'admin',
+  EDITOR: 'editor',
+  USER:   'user',
+};
+
+// ─── Pagination ───
+export const PAGE_SIZE       = 12;
+export const ADMIN_PAGE_SIZE = 20;
+
+// ─── Article Status ───
+export const ARTICLE_STATUS = {
+  DRAFT:     'draft',
+  PUBLISHED: 'published',
+  ARCHIVED:  'archived',
+};
+
+// ─── Article Categories ───
+export const CATEGORIES = [
+  { id: 'cardiology',  label: 'Cardiology'    },
+  { id: 'neurology',   label: 'Neurology'     },
+  { id: 'oncology',    label: 'Oncology'      },
+  { id: 'pediatrics',  label: 'Pediatrics'    },
+  { id: 'dermatology', label: 'Dermatology'   },
+  { id: 'orthopedics', label: 'Orthopedics'   },
+  { id: 'psychiatry',  label: 'Psychiatry'    },
+  { id: 'nutrition',   label: 'Nutrition'     },
+  { id: 'general',     label: 'General Health'},
+];
+
+// ─── Toast ───
+export const TOAST_DURATION = 4000;
+export const TOAST_TYPES = {
+  SUCCESS: 'success',
+  ERROR:   'error',
+  WARNING: 'warning',
+  INFO:    'info',
+};
+
+// ─── Routes ───
+export const ROUTES = {
+  HOME:           '/',
+  LOGIN:          '/pages/auth/login.html',
+  REGISTER:       '/pages/auth/register.html',
+  PROFILE:        '/pages/auth/profile.html',
+  ARTICLES:       '/pages/articles/index.html',
+  ARTICLE_DETAIL: '/pages/articles/detail.html',
+  ADMIN:          '/pages/admin/index.html',
+  ADMIN_USERS:    '/pages/admin/users.html',
+  ADMIN_ARTICLES: '/pages/admin/articles.html',
+};

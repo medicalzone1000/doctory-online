@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up — MediCore</title>
+
+  <link rel="stylesheet" href="../../styles/base/variables.css">
+  <link rel="stylesheet" href="../../styles/base/reset.css">
+  <link rel="stylesheet" href="../../styles/base/typography.css">
+  <link rel="stylesheet" href="../../styles/components/button.css">
+  <link rel="stylesheet" href="../../styles/components/form.css">
+  <link rel="stylesheet" href="../../styles/components/toast.css">
+  <link rel="stylesheet" href="../../styles/components/spinner.css">
+</head>
+<body>
+
+<main class="auth-page">
+  <div class="auth-card" style="max-width:480px">
+    <div class="auth-card__logo">⚕ MediCore</div>
+    <h1 class="auth-card__title">Create an account</h1>
+    <p class="auth-card__subtitle">Join MediCore to access medical content</p>
+
+    <form class="form" id="register-form" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label form-label--required" for="firstName">First name</label>
+          <input class="form-control" type="text" id="firstName" name="firstName" placeholder="Ahmed" autocomplete="given-name" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label form-label--required" for="lastName">Last name</label>
+          <input class="form-control" type="text" id="lastName" name="lastName" placeholder="Hassan" autocomplete="family-name" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label form-label--required" for="email">Email address</label>
+        <div class="input-group">
+          <span class="input-group__icon">✉</span>
+          <input class="form-control" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label form-label--required" for="password">Password</label>
+        <div class="input-group">
+          <span class="input-group__icon">🔒</span>
+          <input class="form-control" type="password" id="password" name="password" placeholder="Min. 8 characters" autocomplete="new-password" required>
+        </div>
+        <span class="form-hint">Must include uppercase letter and a number</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label form-label--required" for="confirmPassword">Confirm password</label>
+        <div class="input-group">
+          <span class="input-group__icon">🔒</span>
+          <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat password" autocomplete="new-password" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg" id="submit-btn">
+        <span class="btn__text">Create account</span>
+      </button>
+    </form>
+
+    <div class="auth-card__footer">
+      Already have an account? <a href="/pages/auth/login.html">Log in</a>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="../../src/pages/Register.js"></script>
+</body>
+</html>

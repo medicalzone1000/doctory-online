@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log in — MediCore</title>
+
+  <link rel="stylesheet" href="../../styles/base/variables.css">
+  <link rel="stylesheet" href="../../styles/base/reset.css">
+  <link rel="stylesheet" href="../../styles/base/typography.css">
+  <link rel="stylesheet" href="../../styles/components/button.css">
+  <link rel="stylesheet" href="../../styles/components/form.css">
+  <link rel="stylesheet" href="../../styles/components/toast.css">
+  <link rel="stylesheet" href="../../styles/components/spinner.css">
+</head>
+<body>
+
+<main class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card__logo">⚕ MediCore</div>
+    <h1 class="auth-card__title">Welcome back</h1>
+    <p class="auth-card__subtitle">Log in to your account to continue</p>
+
+    <form class="form" id="login-form" novalidate>
+      <div class="form-group">
+        <label class="form-label form-label--required" for="email">Email address</label>
+        <div class="input-group">
+          <span class="input-group__icon">✉</span>
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label form-label--required" for="password">Password</label>
+        <div class="input-group">
+          <span class="input-group__icon">🔒</span>
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+            required
+          >
+        </div>
+        <div style="text-align:right">
+          <a href="/pages/auth/forgot-password.html" style="font-size:var(--text-xs);color:var(--color-primary)">
+            Forgot password?
+          </a>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block btn--lg" id="submit-btn">
+        <span class="btn__text">Log in</span>
+      </button>
+    </form>
+
+    <div class="auth-card__footer">
+      Don't have an account? <a href="/pages/auth/register.html">Sign up</a>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="../../src/pages/Login.js"></script>
+</body>
+</html>
