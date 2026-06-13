@@ -8,7 +8,7 @@ export const APP_VERSION = '1.0.0';
 // ─── SUPABASE ───
 export const SUPABASE_URL = 'https://egcfnjfrrajxwfhucltk.supabase.co';
 // انسخ هذا المفتاح من: Supabase Dashboard → Settings → API → anon/public key
-export const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+export const SUPABASE_ANON_KEY = 'sb_publishable_GnkQKXms2iU-j7wj2gkx_A_Vngqq...';
 
 // ─── API (kept for reference, now replaced by Supabase client) ───
 export const API_BASE_URL    = SUPABASE_URL;
