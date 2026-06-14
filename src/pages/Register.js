@@ -20,11 +20,11 @@ const submitBtn = $('#submit-btn');
 const pwdInput = document.getElementById('password');
 
 const getSchema = () => ({
-  firstName: [rules.required(), rules.minLength(2)],
-  lastName: [rules.required(), rules.minLength(2)],
-  email: [rules.required(), rules.email],
-  password: [rules.required(), rules.strongPassword],
-  confirmPassword: [rules.required(), rules.match(pwdInput.value, 'Passwords do not match')],
+  firstName:       [rules.required, rules.minLength(2)],
+  lastName:        [rules.required, rules.minLength(2)],
+  email:           [rules.required, rules.email],
+  password:        [rules.required, rules.strongPassword],
+  confirmPassword: [rules.required, rules.match(pwdInput.value, 'Passwords do not match')],
 });
 
 form.addEventListener('submit', async (e) => {
@@ -46,7 +46,7 @@ form.addEventListener('submit', async (e) => {
 
   try {
     await authApi.register({
-      email: data.email,
+      email:    data.email,
       password: data.password,
       fullName: `${data.firstName} ${data.lastName}`,
     });
