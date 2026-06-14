@@ -20,7 +20,7 @@ $$('.admin-nav__item').forEach(link => {
 });
 
 // ─── Populate category selects ───
-[...$$('#category-filter option'), ...[]]
+
 const catFilterEl   = $('#category-filter');
 const articleCatEl  = $('#article-category');
 
