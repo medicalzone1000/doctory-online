@@ -1,50 +1,60 @@
 // ─────────────────────────────────────────
-//  AUTH SERVICE
-//  Token management & session logic
+//  AUTH SERVICE — Supabase Session
+//  Token managed by Supabase, profile from DB
 // ─────────────────────────────────────────
 
-import { TOKEN_KEY, REFRESH_TOKEN_KEY, USER_KEY, ROLES, ROUTES } from '../../config/constants.js';
+import { USER_KEY, ROLES, ROUTES } from '../../config/constants.js';
 import { localStorage_ } from './storage.service.js';
+import supabase from '../api/supabase.js';
 import store from '../store/index.js';
 
 class AuthService {
-  /** Save tokens and user after login */
+  /** Initialize auth state on app start */
+  async init() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      await this._loadUser();
+      return true;
+    }
+    store.set({ user: null, isAuth: false });
+    return false;
+  }
+
+  /** Load user + profile from Supabase */
+  async _loadUser() {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error || !user) {
+      this.clearSession();
+      return;
+    }
+    
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+    
+    const fullUser = { ...user, profile };
+    localStorage_.set(USER_KEY, fullUser);
+    store.set({ user: fullUser, isAuth: true });
+  }
+
+  /** Save session after login/register */
   setSession(data) {
-    const { token, refreshToken, user } = data;
-    localStorage_.set(TOKEN_KEY, token);
-    if (refreshToken) localStorage_.set(REFRESH_TOKEN_KEY, refreshToken);
-    localStorage_.set(USER_KEY, user);
-    store.set({ user, isAuth: true });
+    // Supabase manages tokens internally, just load user
+    this._loadUser();
   }
 
   /** Clear session on logout */
-  clearSession() {
-    localStorage_.remove(TOKEN_KEY);
-    localStorage_.remove(REFRESH_TOKEN_KEY);
+  async clearSession() {
+    await supabase.auth.signOut();
     localStorage_.remove(USER_KEY);
     store.set({ user: null, isAuth: false });
   }
 
-  /** Restore session from storage (call on app init) */
+  /** Restore session (alias for init) */
   restoreSession() {
-    const token = this.getToken();
-    const user  = localStorage_.get(USER_KEY);
-    if (token && user && !this.isTokenExpired(token)) {
-      store.set({ user, isAuth: true });
-      return true;
-    }
-    this.clearSession();
-    return false;
-  }
-
-  /** Get the access token */
-  getToken() {
-    return localStorage_.get(TOKEN_KEY);
-  }
-
-  /** Get refresh token */
-  getRefreshToken() {
-    return localStorage_.get(REFRESH_TOKEN_KEY);
+    return this.init();
   }
 
   /** Get the current user object */
@@ -54,31 +64,14 @@ class AuthService {
 
   /** Check if user is authenticated */
   isAuthenticated() {
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
-  }
-
-  /** Decode a JWT payload (no verification) */
-  decodeToken(token) {
-    try {
-      const payload = token.split('.')[1];
-      return JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
-    } catch {
-      return null;
-    }
-  }
-
-  /** Check if token is expired */
-  isTokenExpired(token) {
-    const decoded = this.decodeToken(token);
-    if (!decoded || !decoded.exp) return false;
-    return decoded.exp * 1000 < Date.now();
+    const user = this.getUser();
+    return !!user;
   }
 
   /** Check if user has a specific role */
   hasRole(role) {
     const user = this.getUser();
-    return user?.role === role;
+    return user?.profile?.role === role;
   }
 
   /** Check if user is admin */
@@ -89,6 +82,18 @@ class AuthService {
   /** Check if user is editor */
   isEditor() {
     return this.hasRole(ROLES.EDITOR) || this.isAdmin();
+  }
+
+  /** Listen to auth state changes */
+  onAuthChange(callback) {
+    return supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        this._loadUser().then(() => callback(this.getUser()));
+      } else if (event === 'SIGNED_OUT') {
+        this.clearSession();
+        callback(null);
+      }
+    });
   }
 
   /** Redirect to login (save current URL for redirect-back) */
@@ -102,7 +107,7 @@ class AuthService {
 
   /** Redirect after successful login */
   redirectAfterLogin() {
-    const params  = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
     const redirect = params.get('redirect');
     if (redirect && redirect.startsWith(window.location.origin)) {
       window.location.href = redirect;
