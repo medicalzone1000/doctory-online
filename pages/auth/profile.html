@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — MediCore</title>
+
+  <link rel="stylesheet" href="../../styles/base/variables.css">
+  <link rel="stylesheet" href="../../styles/base/reset.css">
+  <link rel="stylesheet" href="../../styles/base/typography.css">
+  <link rel="stylesheet" href="../../styles/layout/container.css">
+  <link rel="stylesheet" href="../../styles/components/button.css">
+  <link rel="stylesheet" href="../../styles/components/card.css">
+  <link rel="stylesheet" href="../../styles/components/navbar.css">
+  <link rel="stylesheet" href="../../styles/components/toast.css">
+  <link rel="stylesheet" href="../../styles/components/spinner.css">
+  <link rel="stylesheet" href="../../styles/components/form.css">
+</head>
+<body>
+
+<header id="navbar" class="navbar"></header>
+
+<main class="section">
+  <div class="container" style="max-width:720px">
+
+    <h1 class="h3" style="margin-bottom:var(--space-8)">My Profile</h1>
+
+    <!-- Profile Info Card -->
+    <div class="card" style="margin-bottom:var(--space-6)">
+      <div class="card__body">
+        <div style="display:flex;align-items:center;gap:var(--space-5);margin-bottom:var(--space-6)">
+          <div id="profile-avatar" style="
+            width:5rem;height:5rem;border-radius:50%;
+            background:var(--color-primary-subtle);color:var(--color-primary);
+            display:flex;align-items:center;justify-content:center;
+            font-size:var(--text-2xl);font-weight:var(--font-weight-bold);flex-shrink:0">
+            U
+          </div>
+          <div>
+            <h2 class="h4" id="profile-name">—</h2>
+            <p class="text-muted text-sm" id="profile-email">—</p>
+            <span class="badge badge--primary" id="profile-role" style="margin-top:var(--space-1)">user</span>
+          </div>
+        </div>
+
+        <form id="profile-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label form-label--required" for="first-name">First name</label>
+              <input class="form-control" type="text" id="first-name" name="firstName" placeholder="Ahmed" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label form-label--required" for="last-name">Last name</label>
+              <input class="form-control" type="text" id="last-name" name="lastName" placeholder="Hassan" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="bio">Bio</label>
+            <textarea class="form-control" id="bio" name="bio" rows="3" placeholder="Tell us a little about yourself…"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profile-email-input">Email address</label>
+            <input class="form-control" type="email" id="profile-email-input" name="email" placeholder="you@example.com" disabled>
+            <span class="form-hint">Email cannot be changed. Contact support if needed.</span>
+          </div>
+
+          <button type="submit" class="btn btn--primary" id="profile-save-btn">
+            <span class="btn__text">Save changes</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Change Password Card -->
+    <div class="card">
+      <div class="card__body">
+        <h3 class="h5" style="margin-bottom:var(--space-5)">Change Password</h3>
+
+        <form id="password-form" novalidate>
+          <div class="form-group">
+            <label class="form-label form-label--required" for="current-password">Current password</label>
+            <div class="input-group">
+              <span class="input-group__icon">🔒</span>
+              <input class="form-control" type="password" id="current-password" name="currentPassword" placeholder="Your current password" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label form-label--required" for="new-password">New password</label>
+            <div class="input-group">
+              <span class="input-group__icon">🔒</span>
+              <input class="form-control" type="password" id="new-password" name="newPassword" placeholder="Min. 8 characters" required>
+            </div>
+            <span class="form-hint">Must include uppercase letter and a number</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label form-label--required" for="confirm-password">Confirm new password</label>
+            <div class="input-group">
+              <span class="input-group__icon">🔒</span>
+              <input class="form-control" type="password" id="confirm-password" name="confirmPassword" placeholder="Repeat new password" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--secondary" id="password-save-btn">
+            <span class="btn__text">Update password</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script type="module" src="../../src/pages/Profile.js"></script>
+</body>
+</html>

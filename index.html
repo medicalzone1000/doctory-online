@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediCore — Medical Knowledge Platform</title>
+  <meta name="description" content="MediCore — evidence-based medical articles and trusted health knowledge for professionals and patients.">
+  <meta name="theme-color" content="#0f766e">
+
+  <link rel="stylesheet" href="styles/base/variables.css">
+  <link rel="stylesheet" href="styles/base/reset.css">
+  <link rel="stylesheet" href="styles/base/typography.css">
+  <link rel="stylesheet" href="styles/layout/container.css">
+  <link rel="stylesheet" href="styles/components/button.css">
+  <link rel="stylesheet" href="styles/components/card.css">
+  <link rel="stylesheet" href="styles/components/navbar.css">
+  <link rel="stylesheet" href="styles/components/toast.css">
+  <link rel="stylesheet" href="styles/components/spinner.css">
+  <link rel="stylesheet" href="styles/pages/home.css">
+</head>
+<body>
+
+<header id="navbar" class="navbar"></header>
+
+<main>
+  <!-- ─── Hero ─── -->
+  <section class="hero section">
+    <div class="container">
+      <div class="hero__content">
+        <p class="eyebrow">Trusted Medical Knowledge</p>
+        <h1 class="hero__title">Your gateway to<br>evidence-based medicine</h1>
+        <p class="hero__subtitle lead">
+          Access thousands of peer-reviewed medical articles across every specialty —
+          written for professionals and patients alike.
+        </p>
+        <div class="hero__actions">
+          <a href="pages/articles/index.html" class="btn btn--primary btn--lg">Browse Articles</a>
+          <a href="pages/auth/register.html"  class="btn btn--secondary btn--lg">Join Free</a>
+        </div>
+        <div class="hero__stats">
+          <div class="hero__stat"><strong>12,000+</strong><span>Articles</span></div>
+          <div class="hero__stat"><strong>40+</strong><span>Specialties</span></div>
+          <div class="hero__stat"><strong>500K+</strong><span>Readers</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Categories ─── -->
+  <section class="section section--sm" style="background:var(--color-surface-1)">
+    <div class="container">
+      <h2 class="section__title">Browse by Specialty</h2>
+      <div class="category-grid" id="category-grid"></div>
+    </div>
+  </section>
+
+  <!-- ─── Latest Articles ─── -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <h2 class="section__title">Latest Articles</h2>
+        <a href="pages/articles/index.html" class="btn btn--ghost btn--sm">View all →</a>
+      </div>
+      <div class="grid grid--3" id="articles-grid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__content">
+      <div class="footer__brand">
+        <span class="footer__logo">⚕ MediCore</span>
+        <p class="footer__tagline">Evidence-based medical content for everyone.</p>
+      </div>
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="pages/articles/index.html">Articles</a>
+        <a href="pages/auth/login.html">Log in</a>
+        <a href="pages/auth/register.html">Sign up</a>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 MediCore. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="src/pages/Home.js"></script>
+</body>
+</html>
