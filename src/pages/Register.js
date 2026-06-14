@@ -42,9 +42,9 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const result = await authApi.register({
-      name:     `${data.firstName} ${data.lastName}`,
       email:    data.email,
       password: data.password,
+      fullName: `${data.firstName} ${data.lastName}`,
     });
     authService.setSession(result);
     toast.success('Account created! Welcome to MediCore.');
