@@ -58,14 +58,14 @@ export const TOAST_TYPES = {
   INFO: 'info',
 };
 
-// ─── Routes ───
+// ─── Routes (Hash routing for GitHub Pages SPA) ───
 export const ROUTES = {
-  HOME:            '/doctory-online/',
-  LOGIN:           '/doctory-online/pages/auth/login.html',
-  REGISTER:        '/doctory-online/pages/auth/register.html',
-  ARTICLES:        '/doctory-online/pages/articles/index.html',
-  ARTICLE_DETAIL:  '/doctory-online/pages/articles/detail.html',
-  ADMIN:           '/doctory-online/pages/admin/index.html',
-  ADMIN_USERS:     '/doctory-online/pages/admin/users.html',
-  ADMIN_ARTICLES:  '/doctory-online/pages/admin/articles.html',
+  HOME:            '/doctory-online/#/',
+  LOGIN:           '/doctory-online/#/pages/auth/login.html',
+  REGISTER:        '/doctory-online/#/pages/auth/register.html',
+  ARTICLES:        '/doctory-online/#/pages/articles/index.html',
+  ARTICLE_DETAIL:  '/doctory-online/#/pages/articles/detail.html',
+  ADMIN:           '/doctory-online/#/pages/admin/index.html',
+  ADMIN_USERS:     '/doctory-online/#/pages/admin/users.html',
+  ADMIN_ARTICLES:  '/doctory-online/#/pages/admin/articles.html',
 };
