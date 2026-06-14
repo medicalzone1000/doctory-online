@@ -5,7 +5,11 @@
 export const APP_NAME = 'MediCore';
 export const APP_VERSION = '1.0.0';
 
-// ─── API ───
+// ─── Supabase ───
+export const SUPABASE_URL = 'https://egcfnjfrrajxwfhucltk.supabase.co';
+export const SUPABASE_ANON_KEY = 'sb_publishable_GnkQKXmS2IU-j7wj2gkx_A_Vnggq...'; // ← استبدل ده بالمفتاح الكامل من Supabase Dashboard
+
+// ─── API (legacy — kept for reference) ───
 export const API_BASE_URL = 'https://api.medicore.example.com/v1';
 export const API_TIMEOUT = 10000;
 
