@@ -1,77 +1,37 @@
 // ─────────────────────────────────────────
-//  USERS API  —  Supabase implementation
+//  USERS API
 // ─────────────────────────────────────────
 
-import supabase from './supabase.js';
+import client from './client.js';
 
 export const usersApi = {
-
   /** List all users (admin only) */
-  list: async ({ page = 1, limit = 20, search = '', role = '' } = {}) => {
-    let query = supabase
-      .from('profiles')
-      .select('*', { count: 'exact' });
-
-    if (role)   query = query.eq('role', role);
-    if (search) query = query.ilike('full_name', `%${search}%`);
-
-    const from = (page - 1) * limit;
-    query = query.range(from, from + limit - 1).order('created_at', { ascending: false });
-
-    const { data, error, count } = await query;
-    if (error) throw { message: error.message };
-    return { users: data, total: count, page, limit };
-  },
+  list: ({ page = 1, limit = 20, search = '', role = '' } = {}) =>
+    client.get('/users', { page, limit, search, role }),
 
   /** Get user by ID */
-  getById: async (id) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', id)
-      .single();
-    if (error) throw { message: error.message, status: 404 };
-    return data;
-  },
+  getById: (id) =>
+    client.get(`/users/${id}`),
 
-  /** Update user profile */
-  update: async (id, updates) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    if (error) throw { message: error.message };
-    return data;
-  },
+  /** Update user */
+  update: (id, data) =>
+    client.put(`/users/${id}`, data),
 
-  /** Change user role (admin only) */
-  setRole: async (id, role) => usersApi.update(id, { role }),
+  /** Change user role (admin) */
+  setRole: (id, role) =>
+    client.patch(`/users/${id}`, { role }),
 
   /** Activate / deactivate user */
-  setActive: async (id, active) => usersApi.update(id, { active }),
+  setActive: (id, active) =>
+    client.patch(`/users/${id}`, { active }),
 
-  /** Delete user (admin only — deletes auth user too via cascade) */
-  delete: async (id) => {
-    // Uses service-role key only — this won't work from frontend.
-    // Instead, deactivate the user:
-    return usersApi.setActive(id, false);
-  },
+  /** Delete user (admin) */
+  delete: (id) =>
+    client.delete(`/users/${id}`),
 
-  /** Get user stats (total users, by role) */
-  stats: async () => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('role');
-    if (error) throw { message: error.message };
-
-    const total  = data.length;
-    const admins  = data.filter(u => u.role === 'admin').length;
-    const editors = data.filter(u => u.role === 'editor').length;
-    const users   = data.filter(u => u.role === 'user').length;
-    return { total, admins, editors, users };
-  },
+  /** Get user stats */
+  stats: () =>
+    client.get('/users/stats'),
 };
 
 export default usersApi;

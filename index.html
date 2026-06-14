@@ -5,22 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MediCore — Medical Knowledge Platform</title>
 
-  <link rel="stylesheet" href="/doctory-online/styles/base/variables.css">
-  <link rel="stylesheet" href="/doctory-online/styles/base/reset.css">
-  <link rel="stylesheet" href="/doctory-online/styles/base/typography.css">
-  <link rel="stylesheet" href="/doctory-online/styles/layout/container.css">
-  <link rel="stylesheet" href="/doctory-online/styles/components/button.css">
-  <link rel="stylesheet" href="/doctory-online/styles/components/card.css">
-  <link rel="stylesheet" href="/doctory-online/styles/components/navbar.css">
-  <link rel="stylesheet" href="/doctory-online/styles/components/toast.css">
-  <link rel="stylesheet" href="/doctory-online/styles/components/spinner.css">
-  <link rel="stylesheet" href="/doctory-online/styles/pages/home.css">
+  <link rel="stylesheet" href="styles/base/variables.css">
+  <link rel="stylesheet" href="styles/base/reset.css">
+  <link rel="stylesheet" href="styles/base/typography.css">
+  <link rel="stylesheet" href="styles/layout/container.css">
+  <link rel="stylesheet" href="styles/components/button.css">
+  <link rel="stylesheet" href="styles/components/card.css">
+  <link rel="stylesheet" href="styles/components/navbar.css">
+  <link rel="stylesheet" href="styles/components/toast.css">
+  <link rel="stylesheet" href="styles/components/spinner.css">
+  <link rel="stylesheet" href="styles/pages/home.css">
 </head>
 <body>
 
 <header id="navbar" class="navbar"></header>
 
 <main>
+  <!-- ─── Hero ─── -->
   <section class="hero section">
     <div class="container">
       <div class="hero__content">
@@ -31,8 +32,8 @@
           written for professionals and patients alike.
         </p>
         <div class="hero__actions">
-          <a href="/doctory-online/pages/articles/index.html" class="btn btn--primary btn--lg">Browse Articles</a>
-          <a href="/doctory-online/pages/auth/register.html" class="btn btn--secondary btn--lg">Join Free</a>
+          <a href="pages/articles/index.html" class="btn btn--primary btn--lg">Browse Articles</a>
+          <a href="pages/auth/register.html"  class="btn btn--secondary btn--lg">Join Free</a>
         </div>
         <div class="hero__stats">
           <div class="hero__stat"><strong>12,000+</strong><span>Articles</span></div>
@@ -43,6 +44,7 @@
     </div>
   </section>
 
+  <!-- ─── Categories ─── -->
   <section class="section section--sm" style="background:var(--color-surface-1)">
     <div class="container">
       <h2 class="section__title">Browse by Specialty</h2>
@@ -50,11 +52,12 @@
     </div>
   </section>
 
+  <!-- ─── Latest Articles ─── -->
   <section class="section">
     <div class="container">
       <div class="section__header">
         <h2 class="section__title">Latest Articles</h2>
-        <a href="/doctory-online/pages/articles/index.html" class="btn btn--ghost btn--sm">View all →</a>
+        <a href="pages/articles/index.html" class="btn btn--ghost btn--sm">View all →</a>
       </div>
       <div class="grid grid--3" id="articles-grid"></div>
     </div>
@@ -69,9 +72,9 @@
         <p class="footer__tagline">Evidence-based medical content for everyone.</p>
       </div>
       <nav class="footer__links" aria-label="Footer navigation">
-        <a href="/doctory-online/pages/articles/index.html">Articles</a>
-        <a href="/doctory-online/pages/auth/login.html">Log in</a>
-        <a href="/doctory-online/pages/auth/register.html">Sign up</a>
+        <a href="pages/articles/index.html">Articles</a>
+        <a href="pages/auth/login.html">Log in</a>
+        <a href="pages/auth/register.html">Sign up</a>
       </nav>
     </div>
     <div class="footer__bottom">
@@ -80,6 +83,6 @@
   </div>
 </footer>
 
-<script type="module" src="/doctory-online/src/pages/Home.js"></script>
+<script type="module" src="src/pages/Home.js"></script>
 </body>
 </html>
