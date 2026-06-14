@@ -25,20 +25,20 @@ export class Navbar {
       <div class="navbar__container">
         <a href="${ROUTES.HOME}" class="navbar__logo">
           <span class="navbar__logo-icon">⚕</span>
-          <span class="navbar__logo-text">MediCore</span>
+          <span class="navbar__logo-text">Doctory.online</span>
         </a>
 
-        <nav class="navbar__nav" id="navbar-nav" aria-label="Main navigation">
+        <nav class="navbar__nav" id="navbar-nav" aria-label="التنقل الرئيسي">
           <ul class="navbar__nav-list">
-            <li><a href="${ROUTES.HOME}"     class="navbar__nav-link" data-nav="home">Home</a></li>
-            <li><a href="${ROUTES.ARTICLES}" class="navbar__nav-link" data-nav="articles">Articles</a></li>
-            ${isAdmin ? `<li><a href="${ROUTES.ADMIN}" class="navbar__nav-link" data-nav="admin">Admin</a></li>` : ''}
+            <li><a href="${ROUTES.HOME}"     class="navbar__nav-link" data-nav="home">الرئيسية</a></li>
+            <li><a href="${ROUTES.ARTICLES}" class="navbar__nav-link" data-nav="articles">المقالات</a></li>
+            ${isAdmin ? `<li><a href="${ROUTES.ADMIN}" class="navbar__nav-link" data-nav="admin">لوحة التحكم</a></li>` : ''}
           </ul>
         </nav>
 
         <div class="navbar__actions">
           ${isAuth ? this.#userMenu(user) : this.#authButtons()}
-          <button class="navbar__burger" id="navbar-burger" aria-label="Toggle menu" aria-expanded="false">
+          <button class="navbar__burger" id="navbar-burger" aria-label="فتح القائمة" aria-expanded="false">
             <span class="navbar__burger-bar"></span>
             <span class="navbar__burger-bar"></span>
             <span class="navbar__burger-bar"></span>
@@ -53,8 +53,8 @@ export class Navbar {
   #authButtons() {
     return `
       <div class="navbar__auth">
-        <a href="${ROUTES.LOGIN}"    class="navbar__auth-login">Log in</a>
-        <a href="${ROUTES.REGISTER}" class="navbar__auth-register">Sign up</a>
+        <a href="${ROUTES.LOGIN}"    class="navbar__auth-login">تسجيل الدخول</a>
+        <a href="${ROUTES.REGISTER}" class="navbar__auth-register">إنشاء حساب</a>
       </div>
     `;
   }
@@ -63,7 +63,7 @@ export class Navbar {
     const displayName = authService.getDisplayName(user);
     const initials = displayName
       ? displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)
-      : 'U';
+      : 'م';
 
     return `
       <div class="navbar__user">
@@ -73,10 +73,10 @@ export class Navbar {
           <span class="navbar__user-chevron">▾</span>
         </button>
         <div class="navbar__dropdown" id="user-dropdown" role="menu">
-          <a href="${ROUTES.PROFILE}" class="navbar__dropdown-item" role="menuitem">Profile</a>
-          ${authService.isAdmin() ? `<a href="${ROUTES.ADMIN}" class="navbar__dropdown-item" role="menuitem">Admin Panel</a>` : ''}
+          <a href="${ROUTES.PROFILE}" class="navbar__dropdown-item" role="menuitem">الملف الشخصي</a>
+          ${authService.isAdmin() ? `<a href="${ROUTES.ADMIN}" class="navbar__dropdown-item" role="menuitem">لوحة التحكم</a>` : ''}
           <div class="navbar__dropdown-divider"></div>
-          <button class="navbar__dropdown-item navbar__dropdown-item--danger" id="logout-btn" role="menuitem">Log out</button>
+          <button class="navbar__dropdown-item navbar__dropdown-item--danger" id="logout-btn" role="menuitem">تسجيل الخروج</button>
         </div>
       </div>
     `;
@@ -90,7 +90,6 @@ export class Navbar {
   }
 
   #bind() {
-    // Burger toggle
     const burger = $('#navbar-burger', this.#el);
     const nav    = $('#navbar-nav', this.#el);
     burger?.addEventListener('click', () => {
@@ -100,7 +99,6 @@ export class Navbar {
       nav?.classList.toggle('navbar__nav--open', !open);
     });
 
-    // User dropdown
     const toggle   = $('#user-toggle', this.#el);
     const dropdown = $('#user-dropdown', this.#el);
     toggle?.addEventListener('click', () => {
@@ -109,7 +107,6 @@ export class Navbar {
       dropdown?.classList.toggle('navbar__dropdown--open', !open);
     });
 
-    // Close dropdown on outside click
     document.addEventListener('click', (e) => {
       if (!this.#el.querySelector('.navbar__user')?.contains(e.target)) {
         dropdown?.classList.remove('navbar__dropdown--open');
@@ -117,7 +114,6 @@ export class Navbar {
       }
     });
 
-    // Logout
     $('#logout-btn', this.#el)?.addEventListener('click', async () => {
       await authService.clearSession();
       window.location.href = ROUTES.HOME;
