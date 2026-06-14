@@ -18,8 +18,8 @@ const form = $('#login-form');
 const submitBtn = $('#submit-btn');
 
 const schema = {
-  email: [rules.required(), rules.email],
-  password: [rules.required()],
+  email:    [rules.required, rules.email],
+  password: [rules.required],
 };
 
 form.addEventListener('submit', async (e) => {
@@ -53,4 +53,4 @@ form.addEventListener('submit', async (e) => {
 
 const reason = getParam('reason');
 if (reason === 'session_expired') toast.warning('Your session expired. Please log in again.');
-if (reason === 'auth_required') toast.info('Please log in to continue.');
+if (reason === 'auth_required')   toast.info('Please log in to continue.');
