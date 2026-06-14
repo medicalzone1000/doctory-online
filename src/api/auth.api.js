@@ -1,45 +1,76 @@
 // ─────────────────────────────────────────
-//  AUTH API
+//  AUTH API — Supabase Integration
 // ─────────────────────────────────────────
 
-import client from './client.js';
+import supabase from './supabase.js';
 
 export const authApi = {
   /** Login with email & password */
-  login: (credentials) =>
-    client.post('/auth/login', credentials),
+  login: async ({ email, password }) => {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return data;
+  },
 
   /** Register new user */
-  register: (data) =>
-    client.post('/auth/register', data),
+  register: async ({ email, password, fullName }) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: fullName } }
+    });
+    if (error) throw error;
+    return data;
+  },
 
-  /** Logout (invalidate token server-side) */
-  logout: () =>
-    client.post('/auth/logout'),
-
-  /** Refresh access token */
-  refresh: (refreshToken) =>
-    client.post('/auth/refresh', { refreshToken }),
+  /** Logout */
+  logout: async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+  },
 
   /** Request password reset email */
-  forgotPassword: (email) =>
-    client.post('/auth/forgot-password', { email }),
+  forgotPassword: async (email) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    if (error) throw error;
+  },
 
-  /** Reset password with token */
-  resetPassword: (token, password) =>
-    client.post('/auth/reset-password', { token, password }),
+  /** Reset password (call after clicking email link) */
+  resetPassword: async (password) => {
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
+  },
 
-  /** Get current user profile */
-  me: () =>
-    client.get('/auth/me'),
+  /** Get current user with profile */
+  me: async () => {
+    const { data: { user }, error } = await supabase.auth.getUser();
+    if (error) throw error;
+    if (!user) return null;
+    
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+    
+    return { ...user, profile };
+  },
 
-  /** Update current user profile */
-  updateProfile: (data) =>
-    client.patch('/auth/me', data),
+  /** Update profile */
+  updateProfile: async (data) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    const { error } = await supabase
+      .from('profiles')
+      .update(data)
+      .eq('id', user.id);
+    if (error) throw error;
+  },
 
   /** Change password */
-  changePassword: (data) =>
-    client.post('/auth/change-password', data),
+  changePassword: async (password) => {
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) throw error;
+  },
 };
 
 export default authApi;
