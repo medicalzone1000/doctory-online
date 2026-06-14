@@ -55,13 +55,13 @@ profileForm.addEventListener('submit', async (e) => {
   profileSaveBtn.disabled = true;
 
   try {
-    const updated = await authApi.updateProfile(data);
+    await authApi.updateProfile(data);
+
     // Update local session
     const currentUser = authService.getUser();
+
     authService.setSession({
-      token:        authService.getToken(),
-      refreshToken: authService.getRefreshToken(),
-      user:         { ...currentUser, ...data },
+      user: { ...currentUser, ...data },
     });
 
     $('#profile-name').textContent = data.name;
@@ -107,9 +107,11 @@ passwordForm.addEventListener('submit', async (e) => {
       newPassword:     '#new-password',
       confirmPassword: '#confirm-password',
     };
+
     Object.entries(errors).forEach(([field, msg]) => {
       showFieldError($(fieldMap[field]), msg);
     });
+
     return;
   }
 
@@ -121,6 +123,7 @@ passwordForm.addEventListener('submit', async (e) => {
       currentPassword: data.currentPassword,
       newPassword:     data.newPassword,
     });
+
     toast.success('Password updated successfully.');
     passwordForm.reset();
   } catch (err) {
