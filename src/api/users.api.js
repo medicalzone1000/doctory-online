@@ -8,17 +8,19 @@ export const usersApi = {
   /** List all users (admin only) */
   list: async ({ page = 1, limit = 20, search = '', role = '' } = {}) => {
     let query = supabase.from('profiles').select('*', { count: 'exact' });
-    
+
     if (search) query = query.ilike('full_name', `%${search}%`);
     if (role) query = query.eq('role', role);
-    
+
     const start = (page - 1) * limit;
     const end = start + limit - 1;
-    
+
     const { data, error, count } = await query
       .range(start, end)
       .order('created_at', { ascending: false });
+
     if (error) throw error;
+
     return { data, total: count };
   },
 
@@ -29,7 +31,9 @@ export const usersApi = {
       .select('*')
       .eq('id', id)
       .single();
+
     if (error) throw error;
+
     return data;
   },
 
@@ -41,7 +45,9 @@ export const usersApi = {
       .eq('id', id)
       .select()
       .single();
+
     if (error) throw error;
+
     return profile;
   },
 
@@ -53,7 +59,9 @@ export const usersApi = {
       .eq('id', id)
       .select()
       .single();
+
     if (error) throw error;
+
     return data;
   },
 
@@ -65,47 +73,57 @@ export const usersApi = {
       .eq('id', id)
       .select()
       .single();
+
     if (error) throw error;
+
     return data;
   },
 
-  /** Delete user (admin only) — deletes from auth.users too */
+  /** Delete user (admin only) */
   delete: async (id) => {
-    const { error } = await supabase.auth.admin.deleteUser(id);
+    const { error } = await supabase
+      .from('profiles')
+      .delete()
+      .eq('id', id);
+
     if (error) throw error;
   },
 
   /** Get user stats */
   stats: async () => {
-    const { data: total, error: totalError } = await supabase
+    const { count: total, error: totalError } = await supabase
       .from('profiles')
       .select('*', { count: 'exact', head: true });
+
     if (totalError) throw totalError;
 
-    const { data: admins, error: adminsError } = await supabase
+    const { count: admins, error: adminsError } = await supabase
       .from('profiles')
       .select('*', { count: 'exact', head: true })
       .eq('role', 'admin');
+
     if (adminsError) throw adminsError;
 
-    const { data: editors, error: editorsError } = await supabase
+    const { count: editors, error: editorsError } = await supabase
       .from('profiles')
       .select('*', { count: 'exact', head: true })
       .eq('role', 'editor');
+
     if (editorsError) throw editorsError;
 
-    const { data: active, error: activeError } = await supabase
+    const { count: active, error: activeError } = await supabase
       .from('profiles')
       .select('*', { count: 'exact', head: true })
       .eq('active', true);
+
     if (activeError) throw activeError;
 
     return {
-      total: total.count,
-      admins: admins.count,
-      editors: editors.count,
-      active: active.count,
-      inactive: total.count - active.count,
+      total: total || 0,
+      admins: admins || 0,
+      editors: editors || 0,
+      active: active || 0,
+      inactive: (total || 0) - (active || 0),
     };
   },
 };
