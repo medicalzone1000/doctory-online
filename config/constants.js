@@ -60,12 +60,12 @@ export const TOAST_TYPES = {
 
 // ─── Routes ───
 export const ROUTES = {
-  HOME:            '/',
-  LOGIN:           '/pages/auth/login.html',
-  REGISTER:        '/pages/auth/register.html',
-  ARTICLES:        '/pages/articles/index.html',
-  ARTICLE_DETAIL:  '/pages/articles/detail.html',
-  ADMIN:           '/pages/admin/index.html',
-  ADMIN_USERS:     '/pages/admin/users.html',
-  ADMIN_ARTICLES:  '/pages/admin/articles.html',
+  HOME:            '/doctory-online/',
+  LOGIN:           '/doctory-online/pages/auth/login.html',
+  REGISTER:        '/doctory-online/pages/auth/register.html',
+  ARTICLES:        '/doctory-online/pages/articles/index.html',
+  ARTICLE_DETAIL:  '/doctory-online/pages/articles/detail.html',
+  ADMIN:           '/doctory-online/pages/admin/index.html',
+  ADMIN_USERS:     '/doctory-online/pages/admin/users.html',
+  ADMIN_ARTICLES:  '/doctory-online/pages/admin/articles.html',
 };
